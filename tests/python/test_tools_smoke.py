@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright (c) Sasha Goldshtein, 2017
 # Licensed under the Apache License, Version 2.0 (the "License")
 
@@ -9,7 +9,7 @@ import re
 from unittest import main, skipUnless, TestCase
 from utils import mayFail, kernel_version_ge
 
-TOOLS_DIR = "../../tools/"
+TOOLS_DIR = "/bcc/tools/"
 
 def _helpful_rc_msg(rc, allow_early, kill):
     s = "rc was %d\n" % rc

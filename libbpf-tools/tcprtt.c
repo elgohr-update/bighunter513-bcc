@@ -154,8 +154,7 @@ static error_t parse_arg(int key, char *arg, struct argp_state *state)
 	return 0;
 }
 
-static int libbpf_print_fn(enum libbpf_print_level level,
-			   const char *format, va_list args)
+static int libbpf_print_fn(enum libbpf_print_level level, const char *format, va_list args)
 {
 	if (level == LIBBPF_DEBUG && !env.verbose)
 		return 0;
@@ -226,13 +225,8 @@ int main(int argc, char **argv)
 	if (err)
 		return err;
 
+	libbpf_set_strict_mode(LIBBPF_STRICT_ALL);
 	libbpf_set_print(libbpf_print_fn);
-
-	err = bump_memlock_rlimit();
-	if (err) {
-		fprintf(stderr, "failed to increase rlimit: %d\n", err);
-		return 1;
-	}
 
 	obj = tcprtt_bpf__open();
 	if (!obj) {
@@ -249,7 +243,7 @@ int main(int argc, char **argv)
 	obj->rodata->targ_daddr = env.raddr;
 	obj->rodata->targ_ms = env.milliseconds;
 
-	if (!fentry_exists("tcp_rcv_established", NULL))
+	if (fentry_exists("tcp_rcv_established", NULL))
 		bpf_program__set_autoload(obj->progs.tcp_rcv_kprobe, false);
 	else
 		bpf_program__set_autoload(obj->progs.tcp_rcv, false);

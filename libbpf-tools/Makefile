@@ -16,6 +16,7 @@ $(error Architecture $(ARCH) is not supported yet. Please open an issue)
 endif
 
 APPS = \
+	bashreadline \
 	bindsnoop \
 	biolatency \
 	biopattern \
@@ -35,11 +36,13 @@ APPS = \
 	funclatency \
 	gethostlatency \
 	hardirqs \
+	klockstat \
 	ksnoop \
 	llcstat \
 	mountsnoop \
 	numamove \
 	offcputime \
+	oomkill \
 	opensnoop \
 	readahead \
 	runqlat \
